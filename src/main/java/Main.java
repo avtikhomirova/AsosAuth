@@ -4,6 +4,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 
+import javax.print.DocFlavor;
 import java.time.Duration;
 
 public class Main {
@@ -22,17 +23,28 @@ public class Main {
 
         //Develop later variant for narrow screen mode
 
-        //Authorization with email
-        WebElement emailInput = driver.findElement(By.id("checkEmailAddress"));
-        emailInput.sendKeys("apaccforautomation@gmail.com");
+        //Authorization with email if there are email and password inputs on the page or only email
+        WebElement emailInput = driver.findElement(By.id("EmailAddress"));
+        if (emailInput.isDisplayed()) {
+            emailInput.sendKeys("apaccforautomation@gmail.com");
 
-        WebElement continueButton = driver.findElement(By.className("continue-button"));
-        continueButton.click();
+            WebElement passwordInput = driver.findElement(By.id("Password"));
+            passwordInput.sendKeys("0987654321ap!");
 
-        WebElement passwordInput = driver.findElement(By.id("Password"));
-        passwordInput.sendKeys("0987654321ap!");
+            WebElement signInButton = driver.findElement(By.id("signin"));
+            signInButton.click();
+        } else {
+            emailInput = driver.findElement(By.id("checkEmailAddress"));
+            emailInput.sendKeys("apaccforautomation@gmail.com");
 
-        WebElement signInButton = driver.findElement(By.id("signin"));
-        signInButton.click();
+            WebElement continueButton = driver.findElement(By.className("continue-button"));
+            continueButton.click();
+
+            WebElement passwordInput = driver.findElement(By.id("Password"));
+            passwordInput.sendKeys("0987654321ap!");
+
+            WebElement signInButton = driver.findElement(By.id("signin"));
+            signInButton.click();
+        }
     }
 }
